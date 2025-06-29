@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Notesnest</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+    }
+
+    .header {
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .header h1 {
+      margin: 0 0 10px 0;
+      font-size: 36px;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+
+    .actions input[type="text"],
+    .note-input {
+      width: 90%;
+      max-width: 400px;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
+
+    .note-input {
+      display: none;
+      margin: 10px auto;
+    }
+
+    .note-container {
+      padding: 0 5%;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .note-list {
+      margin-top: 10px;
+    }
+
+    .note {
+      background-color: #222;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+
+    .delete-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background-color: red;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 12px;
+      padding: 4px 8px;
+      cursor: pointer;
+      display: inline-block; /* Always visible */
+    }
+
+    .add {
+      position: fixed;
+      right: 20px;
+      bottom: 40px;
+      background-color: yellow;
+      color: black;
+      border: none;
+      border-radius: 50%;
+      font-size: 32px;
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 120px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #444;
+      padding: 10px 20px;
+      border-radius: 20px;
+      color: #fff;
+      font-size: 14px;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>Notesnest</h1>
+    <div class="actions">
+      <input type="text" placeholder="Search..." />
+    </div>
+    <input class="note-input" type="text" placeholder="Write a note and press Enter" />
+  </div>
+
+  <div class="note-container">
+    <div class="note-list" id="noteList"></div>
+  </div>
+
+  <button class="add">+</button>
+  <div class="toast" id="toast">Note saved</div>
+
+  <script>
+    const addButton = document.querySelector('.add');
+    const noteInput = document.querySelector('.note-input');
+    const noteList = document.getElementById('noteList');
+    const toast = document.getElementById('toast');
+
+    addButton.addEventListener('click', () => {
+      noteInput.style.display = 'block';
+      noteInput.focus();
+    });
+
+    noteInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && noteInput.value.trim() !== '') {
+        addNote(noteInput.value.trim());
+        noteInput.value = '';
+        noteInput.style.display = 'none';
+        showToast("Note saved");
+      }
+    });
+
+    function addNote(text) {
+      const note = document.createElement('div');
+      note.className = 'note';
+      note.innerHTML = `<span class="note-text">${text}</span>`;
+
+      const deleteBtn = document.createElement('button');
+      deleteBtn.className = 'delete-btn';
+      deleteBtn.textContent = 'Delete';
+
+      deleteBtn.addEventListener('click', () => {
+        note.remove();
+      });
+
+      note.appendChild(deleteBtn);
+      noteList.insertBefore(note, noteList.firstChild);
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 1500);
+    }
+  </script>
+
+</body>
+</html>
+
+
+
