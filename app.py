@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_pymongo import PyMongo
-from bson.objectid import ObjectId
+from bson.objectid import ObjectId import os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key_here'  # 🔐 Change this to something secure
 
 # MongoDB Config
-app.config["MONGO_URI"] = "mongodb://localhost:27017/notesnest"
+app.config["MONGO_URI"] =mongodb+srv://svickyvignesh141:Vignesh9878@cluster0.khuqtfx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
 mongo = PyMongo(app)
 
 # Routes
