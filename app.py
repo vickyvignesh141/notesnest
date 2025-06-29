@@ -1,12 +1,12 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, session, flash
 from flask_pymongo import PyMongo
-from bson.objectid import ObjectId import os
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
-app.secret_key = 'your_secret_key_here'  # 🔐 Change this to something secure
+app.secret_key = 'notesnest_secret_key'
 
 # MongoDB Config
-app.config["MONGO_URI"] =mongodb+srv://svickyvignesh141:Vignesh9878@cluster0.khuqtfx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
+app.config["MONGO_URI"] = "mongodb+srv://svickyvignesh141:Vignesh7898@cluster0.khuqtfx.mongodb.net/notesnest?retryWrites=true&w=majority&appName=Cluster0"
 mongo = PyMongo(app)
 
 # Routes
@@ -83,5 +83,5 @@ def delete_note(note_id):
     return redirect('/notes')
 
 if __name__ == '__main__':
-    print("Flask is starting")
+    print("✅ Flask is starting...")
     app.run(debug=True)
